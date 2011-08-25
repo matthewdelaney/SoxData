@@ -1,0 +1,1 @@
+SoxData is a Ruby class for parsing and manipulating SoX .dat files. The main focus is currently on granular amplification/resynthesis to assist with feature-detection.

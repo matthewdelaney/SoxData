@@ -16,12 +16,10 @@ class SoxData
     @slotSize = slotSize # Width of a granule
     f = File.open(filename, "r")
     text = f.read
-    time_amplitude_pairs = Array.new
     # Ignore header lines and read time-amplitude pairs into an array
-    text.lines { |x| if (x[0].chr != ";") then time_amplitude_pairs << x end }
-    @amplitudes = Array.new
+    time_amplitude_pairs = text.to_a.inject(Array.new) { |pairs, line| if (line[0].chr != ";") then pairs << line else pairs end }
     # Extract the amplitude from each pair and add to @amplitudes array
-    time_amplitude_pairs.each { |x| @amplitudes << x.split(%r{\s+})[2].to_f }
+    @amplitudes = time_amplitude_pairs.inject(Array.new) { |amps, pair| amps << pair.split(%r{\s+})[2].to_f }
     f.close
   end
 
